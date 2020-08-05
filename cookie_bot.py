@@ -10,20 +10,27 @@ driver.implicitly_wait(10)
 
 cookie = driver.find_element_by_id("bigCookie")
 cookie_count = driver.find_element_by_id("cookies")
-items = [driver.find_element_by_id("productPrice" + str(i)) for i in range(1,-1,-1)]
+items = [driver.find_element_by_id("productPrice" + str(i)) for i in range(15,-1,-1)]
 
 actions = ActionChains(driver)
 actions.click(cookie)
 
-for i in range(5000):
-    actions.perform()
-    count = int(cookie_count.text.split(" ")[0])
+def upgradeF(X):
+    upgrade_actions = ActionChains(driver)
+    upgrade_actions.move_to_element(X)
+    upgrade_actions.click()
+    upgrade_actions.perform()
+
+
+for i in range(9999999):
+    for i in range(20):
+        actions.perform()
+        count = int(cookie_count.text.split(" ")[0])
     for item in items:
-        value = int(item.text)
-        if value <= count:
-            upgrade_actions = ActionChains(driver)
-            upgrade_actions.move_to_element(item)
-            upgrade_actions.click()
-            upgrade_actions.perform()
+        if item.text.isnumeric():
+            value = int(item.text)
+            if value <= count:
+                upgradeF(item)
+    upgradeF(driver.find_element_by_id("upgrade0"))
 
 
